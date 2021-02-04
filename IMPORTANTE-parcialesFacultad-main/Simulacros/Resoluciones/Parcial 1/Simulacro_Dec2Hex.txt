@@ -1,0 +1,15 @@
+# Simulacro Primer Parcial
+
+def convertirahexa(decimal):
+    hexa = "0123456789ABCDEF"
+    numhexa = ""
+    while decimal>0:
+        resto = decimal%16
+        numhexa = hexa[resto] + numhexa
+        decimal = decimal//16
+    return numhexa
+
+
+# Programa principal
+n = int(input("Número decimal a convertir? "))      
+print(convertirahexa(n))

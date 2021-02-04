@@ -1,0 +1,25 @@
+# Tema 1, ejercicio 1
+
+import random
+
+def generarmatriz(mat):
+    n = len(mat)   # Igual cantidad de filas y columnas
+    for i in range(n):
+        mat[i][n-i-1] = random.randint(1, 99)
+
+def imprimirmatriz(mat):
+    for fila in mat:
+        for col in fila:
+            print(f"{col:3}", end="")
+        print()
+
+# Programa principal
+n = int(input("Ingrese el tamaño de la matriz: "))
+while n<1:
+    print("Tamaño inválido. Debe ser mayor que 0")
+    n = int(input("Ingrese el tamaño de la matriz: "))
+print()
+# Creamos la matriz directamente con los números al azar usando listas por comprensión anidadas
+matriz = [[0]*n for fila in range(n)]
+generarmatriz(matriz)
+imprimirmatriz(matriz)

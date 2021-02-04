@@ -1,0 +1,49 @@
+# Simulacro Segundo Parcial
+
+def limpiarpalabra(palabra):
+    # Separa la palabra de los signos de puntuación anteriores y posteriores
+    # y devuelve todo en tres cadenas.
+    i = 0
+    while i<len(palabra) and not palabra[i].isalpha():
+        i += 1
+    inicio = palabra[:i]
+    j = len(palabra) - 1
+    while j>0 and not palabra[j].isalpha():
+        j -= 1
+    final = palabra[j+1:]
+    palabra = palabra[i:j+1]
+    return inicio, palabra, final  
+
+try:
+    buscar = input("Palabra a buscar? ")
+    reemplazar = input("Reemplazarla por? ")
+    entrada = open("texto1.txt","rt")
+    salida = open("texto2.txt","wt")
+    cambios = 0
+    for linea in entrada:
+        lista = linea.split()
+        for i in range(len(lista)):
+            palabra = lista[i]
+            # Limpiamos la palabra de los signos de puntuación que pudiera tener            
+            prefijo, palabralimpia, sufijo = limpiarpalabra(palabra)
+            if palabralimpia==buscar:
+                # Reemplazamos la palabra original por la nueva en la lista de palabras
+                lista[i] = prefijo+reemplazar+sufijo
+                cambios+=1
+        # Reconstruimos la linea a partir de la lista actualizada
+        linea = " ".join(lista)
+        salida.write(linea+"\n")
+except FileNotFoundError as error:
+    print("Error al abrir los archivos:", error)
+except OSError as error:
+    print("Error fatal:", error)
+else:
+    print()
+    print("Proceso finalizado.")
+    print("La palabra '", buscar, "' fue reemplazada ", cambios, " veces.", sep="")
+finally:
+    try:
+        entrada.close()
+        salida.close()
+    except NameError:
+        pass
